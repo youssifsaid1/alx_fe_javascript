@@ -7,8 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const importFile = document.getElementById("importFile");
   const exportBtn = document.getElementById("exportBtn");
   const categoryFilter = document.getElementById("categoryFilter");
+  const addQuoteBtn = document.getElementById("addQuoteBtn");
 
-  // Quotes Array
+  // Quotes Array & Selected Category
   let quotes = JSON.parse(localStorage.getItem("quotes") || "[]");
   let selectedCategory = localStorage.getItem("selectedCategory") || "all";
 
@@ -45,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
     showRandomQuote();
   }
 
-  // Populate Category Dropdown
+  // Populate Categories Dropdown
   function populateCategories() {
     const categories = [...new Set(quotes.map(q => q.category))];
     categoryFilter.innerHTML = '<option value="all">All Categories</option>';
@@ -90,18 +91,25 @@ document.addEventListener("DOMContentLoaded", () => {
     fileReader.readAsText(event.target.files[0]);
   }
 
-  // Server Sync Simulation
+  // Fetch Quotes from Server (Mock API)
   async function fetchQuotesFromServer() {
-    // Example using JSONPlaceholder
     const response = await fetch("https://jsonplaceholder.typicode.com/posts");
     const data = await response.json();
-    // Map to quotes format
     return data.slice(0, 5).map(d => ({ text: d.title, category: "server" }));
   }
 
+  // Post Quotes to Server (Mock API)
+  async function postQuotesToServer() {
+    await fetch("https://jsonplaceholder.typicode.com/posts", {
+      method: "POST",
+      body: JSON.stringify(quotes),
+      headers: { "Content-type": "application/json; charset=UTF-8" }
+    });
+  }
+
+  // Sync Quotes with Server + Conflict Resolution
   async function syncQuotes() {
     const serverQuotes = await fetchQuotesFromServer();
-    // Conflict resolution: server data takes precedence
     serverQuotes.forEach(sq => {
       if (!quotes.some(q => q.text === sq.text && q.category === sq.category)) {
         quotes.push(sq);
@@ -110,7 +118,8 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("quotes", JSON.stringify(quotes));
     populateCategories();
     showRandomQuote();
-    // Notification for sync
+    postQuotesToServer();
+    // Notification
     const notification = document.createElement("div");
     notification.textContent = "Quotes synced with server!";
     notification.style.position = "fixed";
@@ -128,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Event Listeners
   newQuoteBtn.addEventListener("click", showRandomQuote);
-  document.getElementById("addQuoteBtn").addEventListener("click", addQuote);
+  addQuoteBtn.addEventListener("click", addQuote);
   categoryFilter.addEventListener("change", filterQuotes);
   exportBtn.addEventListener("click", exportToJsonFile);
   importFile.addEventListener("change", importFromJsonFile);
