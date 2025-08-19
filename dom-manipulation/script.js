@@ -14,9 +14,10 @@ function saveQuotes() {
 function populateCategories() {
   const categoryFilter = document.getElementById("categoryFilter");
 
-  // Clear all except "All Categories"
+  // Reset dropdown
   categoryFilter.innerHTML = '<option value="all">All Categories</option>';
 
+  // Extract unique categories
   const categories = [...new Set(quotes.map(q => q.category))];
   categories.forEach(cat => {
     const option = document.createElement("option");
@@ -75,8 +76,8 @@ function addQuote() {
   }
 }
 
-// Filter quotes by category
-function filterQuotes() {
+// Filter quotes by category (note: singular name filterQuote)
+function filterQuote() {
   const category = document.getElementById("categoryFilter").value;
   localStorage.setItem("lastSelectedCategory", category);
   showRandomQuote();
