@@ -3,19 +3,84 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dynamic Quote Generator</title>
+  <title>TechCon 2024 - Conference Homepage</title>
 </head>
 <body>
-  <h1>Dynamic Quote Generator</h1>
-  <div id="quoteDisplay"></div>
-  <button id="newQuote">Show New Quote</button>
+  <!-- Header Section -->
+  <header>
+    <h1>TechCon 2024</h1>
+    <p>The premier conference for technology and innovation</p>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#speakers">Speakers</a></li>
+        <li><a href="#schedule">Schedule</a></li>
+        <li><a href="#register">Register</a></li>
+      </ul>
+    </nav>
+  </header>
 
-  <div>
-    <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
-    <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
-    <button onclick="addQuote()">Add Quote</button>
-  </div>
+  <!-- Main Content -->
+  <main>
+    <!-- About Section -->
+    <section id="about">
+      <h2>About TechCon 2024</h2>
+      <p>TechCon 2024 brings together technology leaders, innovators, and enthusiasts from around the world to share ideas, showcase breakthroughs, and shape the future of technology.</p>
+      <img src="images/conference.jpg" alt="TechCon conference hall">
+    </section>
 
-  <script src="script.js"></script>
+    <!-- Speakers Section -->
+    <section id="speakers">
+      <h2>Keynote Speakers</h2>
+      <article>
+        <h3>Dr. Jane Smith</h3>
+        <p>Expert in Artificial Intelligence and author of "AI for Everyone".</p>
+        <img src="images/jane-smith.jpg" alt="Portrait of Dr. Jane Smith">
+      </article>
+      <article>
+        <h3>Mr. John Doe</h3>
+        <p>Cybersecurity specialist and founder of SecureTech.</p>
+        <img src="images/john-doe.jpg" alt="Portrait of Mr. John Doe">
+      </article>
+    </section>
+
+    <!-- Schedule Section -->
+    <section id="schedule">
+      <h2>Conference Schedule</h2>
+      <ul>
+        <li>Day 1: Keynote & Networking</li>
+        <li>Day 2: Workshops & Panels</li>
+        <li>Day 3: Exhibition & Closing Ceremony</li>
+      </ul>
+    </section>
+
+    <!-- Registration Section -->
+    <section id="register">
+      <h2>Register Now</h2>
+      <p>Secure your spot at TechCon 2024 today!</p>
+      <form action="register.html" method="post">
+        <label for="fullname">Full Name:</label>
+        <input type="text" id="fullname" name="fullname" required>
+        <br><br>
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" required>
+        <br><br>
+        <button type="submit">Register</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Footer Section -->
+  <footer>
+    <p>&copy; 2024 TechCon. All rights reserved.</p>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#speakers">Speakers</a></li>
+        <li><a href="#schedule">Schedule</a></li>
+        <li><a href="#register">Register</a></li>
+      </ul>
+    </nav>
+  </footer>
 </body>
 </html>
