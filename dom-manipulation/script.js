@@ -118,7 +118,7 @@ function importFromJsonFile(event) {
   fileReader.readAsText(event.target.files[0]);
 }
 
-// Fetch quotes from server
+// ✅ Fetch quotes from server
 async function fetchQuotesFromServer() {
   try {
     const res = await fetch(SERVER_URL);
@@ -138,7 +138,7 @@ async function fetchQuotesFromServer() {
   }
 }
 
-// Post new quote to server
+// ✅ Post new quote to server
 async function syncQuoteToServer(quote) {
   try {
     await fetch(SERVER_URL, {
@@ -152,12 +152,12 @@ async function syncQuoteToServer(quote) {
   }
 }
 
-// SyncQuotes function (required by checks)
+// ✅ SyncQuotes function (required by checks)
 async function syncQuotes() {
   await fetchQuotesFromServer(); // always fetch latest from server
 }
 
-// Periodic Sync every 30s
+// ✅ Periodic Sync every 30s
 setInterval(syncQuotes, 30000);
 
 // Event listener for "Show New Quote" button
