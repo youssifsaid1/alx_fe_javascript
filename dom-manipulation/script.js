@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // مصفوفة الكوتس
+  // 🟢 مصفوفة الكوتس
   let quotes = [
     { text: "The best way to get started is to quit talking and begin doing.", category: "Motivation" },
     { text: "Don’t let yesterday take up too much of today.", category: "Wisdom" },
@@ -8,29 +8,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const quoteDisplay = document.getElementById("quoteDisplay");
   const newQuoteBtn = document.getElementById("newQuote");
-  const addQuoteBtn = document.getElementById("addQuoteBtn");
-  const categorySelect = document.getElementById("categorySelect");
 
-  // 🟢 دالة عرض كوت عشوائي
-  function showRandomQuote() {
-    const selectedCategory = categorySelect.value;
-    let filteredQuotes = quotes;
-
-    if (selectedCategory !== "all") {
-      filteredQuotes = quotes.filter(q => q.category.toLowerCase() === selectedCategory.toLowerCase());
-    }
-
-    if (filteredQuotes.length === 0) {
-      quoteDisplay.textContent = "No quotes available for this category.";
-      return;
-    }
-
-    const randomIndex = Math.floor(Math.random() * filteredQuotes.length);
-    const randomQuote = filteredQuotes[randomIndex];
+  // 🟢 دالة عرض كوت عشوائي (لازم اسمها displayRandomQuote)
+  function displayRandomQuote() {
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    const randomQuote = quotes[randomIndex];
     quoteDisplay.textContent = `"${randomQuote.text}" — [${randomQuote.category}]`;
   }
 
-  // 🟢 دالة إضافة كوت جديدة
+  // 🟢 دالة إضافة كوت جديدة (لازم اسمها addQuote)
   function addQuote() {
     const textInput = document.getElementById("newQuoteText");
     const categoryInput = document.getElementById("newQuoteCategory");
@@ -46,25 +32,17 @@ document.addEventListener("DOMContentLoaded", () => {
     // ضيف الكوت للمصفوفة
     quotes.push({ text: newText, category: newCategory });
 
-    // لو الكاتيجوري مش موجودة ضيفها للـ dropdown
-    if (![...categorySelect.options].some(opt => opt.value.toLowerCase() === newCategory.toLowerCase())) {
-      const newOption = document.createElement("option");
-      newOption.value = newCategory;
-      newOption.textContent = newCategory;
-      categorySelect.appendChild(newOption);
-    }
-
     // نظف المدخلات
     textInput.value = "";
     categoryInput.value = "";
 
-    alert("Quote added successfully!");
+    // تحديث الدوم مباشرةً
+    quoteDisplay.textContent = `"${newText}" — [${newCategory}]`;
   }
 
-  // 🟢 روابط الأزرار
-  newQuoteBtn.addEventListener("click", showRandomQuote);
-  addQuoteBtn.addEventListener("click", addQuote);
+  // 🟢 اربط زرار Show New Quote
+  newQuoteBtn.addEventListener("click", displayRandomQuote);
 
-  // أول عرض
-  showRandomQuote();
+  // عرض أول كوت عند تحميل الصفحة
+  displayRandomQuote();
 });
